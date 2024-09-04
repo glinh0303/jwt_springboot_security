@@ -19,6 +19,9 @@ public class UserInfoService implements UserDetailsService {
 
 	@Autowired
 	private PasswordEncoder encoder;
+	
+	@Autowired
+	JwtService jwtService;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -33,6 +36,7 @@ public class UserInfoService implements UserDetailsService {
 		// Encode password before saving the user
 		userInfo.setPassword(encoder.encode(userInfo.getPassword()));
 		repository.save(userInfo);
-		return "User Added Successfully";
+		String jwt = jwtService.generateToken(userInfo.getEmail());
+		return jwt;
 	}
 }

@@ -52,7 +52,7 @@ public class UserController {
 		return "Welcome to Admin Profile";
 	}
 
-	@PostMapping("/generateToken")
+	@PostMapping("/login")
 	public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
@@ -62,4 +62,5 @@ public class UserController {
 			throw new UsernameNotFoundException("Invalid user request!");
 		}
 	}
+
 }
